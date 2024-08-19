@@ -1,0 +1,11 @@
+{
+  "puppet_task_version": 1,
+  "supports_noop": false,
+  "description": "Puppet task which scans entire code environments for removed functions in stdlib 9. Must be run against a Puppet Server with a full copy of the Puppet environment you wish to scan. EG Primary, replica or compiler.",
+  "parameters": {
+    "environment":{
+      "description": "Code environment to scan.",
+      "type": "String[1]"
+    }
+  }
+}
