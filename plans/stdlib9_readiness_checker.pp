@@ -1,12 +1,10 @@
 # lint:ignore:140chars lint:ignore:strict_indent
-# @summary Puppet plan which scans entire code environments for legacy facts. Will automatically locate the Puppet primary and run against it. 
+# @summary Puppet task which scans entire code environments for removed functions in stdlib 9. Will automatically locate the Puppet primary and run against it. 
 #
 #
 # @param environment Code environment to scan.
-# @param check_ruby Whether to check ruby files for legacy facts.
 plan stdlib9_readiness_checker::stdlib9_readiness_checker (
   Pattern[/^[a-z0-9_]+/]  $environment,
-  Boolean               $check_ruby   = false,
 ) {
   # We need to get the primary server. Check pe_status_check fact. otherwise fall back to built in fact.
   $pe_status_results = puppetdb_query('inventory[certname] { facts.pe_status_check_role = "primary" }')

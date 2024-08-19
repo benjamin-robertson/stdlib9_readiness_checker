@@ -2,9 +2,10 @@
   "name": "benjaminrobertson-stdlib9_readiness_checker",
   "version": "0.1.0",
   "author": "benjaminrobertson",
-  "summary": "",
+  "summary": "Detect stdlib 9 removed functions within a Puppet Environment",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://github.com/benjamin-robertson/stdlib9_readiness_checker",
+  "issues_url": "https://github.com/benjamin-robertson/stdlib9_readiness_checker/issues",
   "dependencies": [
 
   ],
@@ -18,19 +19,17 @@
     {
       "operatingsystem": "OracleLinux",
       "operatingsystemrelease": [
-        "7"
+        "7",
+        "8",
+        "9"
       ]
     },
     {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "8"
-      ]
-    },
-    {
-      "operatingsystem": "Scientific",
-      "operatingsystemrelease": [
-        "7"
+        "7",
+        "8",
+        "9"
       ]
     },
     {
@@ -42,7 +41,10 @@
     {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
-        "18.04"
+        "18.04",
+        "20.04",
+        "22.04",
+        "24.04"
       ]
     }
   ],

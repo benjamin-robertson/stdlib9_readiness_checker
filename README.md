@@ -1,17 +1,11 @@
 # stdlib9_readiness_checker
 
-Welcome to your new module. A short overview of the generated parts can be found
-in the [PDK documentation][1].
-
-The README template below provides a starting point with details about what
-information to include in your README.
+A module containing a task and plan to scan entire code environments for stdlib 9 removed functions. 
 
 ## Table of Contents
 
 1. [Description](#description)
 1. [Setup - The basics of getting started with stdlib9_readiness_checker](#setup)
-    * [What stdlib9_readiness_checker affects](#what-stdlib9_readiness_checker-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with stdlib9_readiness_checker](#beginning-with-stdlib9_readiness_checker)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Limitations - OS compatibility, etc.](#limitations)
@@ -19,99 +13,42 @@ information to include in your README.
 
 ## Description
 
-Briefly tell users why they might want to use your module. Explain what your
-module does and what kind of problems users can solve with it.
+Puppet 8 requires upgrade to [stdlib 9][2]. Stdlib 9 has removed many [deprecated functions][1], if these functions are still in use Puppet code will fail to compile after upgrading to stdlib 9. 
 
-This should be a fairly short description helps the user decide if your module
-is what they want.
+Stdlib 9 should be be upgraded too prior to upgrading the Puppet 8. Stdlib 9 is supported on Puppet 7. 
+
 
 ## Setup
 
-### What stdlib9_readiness_checker affects **OPTIONAL**
-
-If it's obvious what your module touches, you can skip this section. For
-example, folks can probably figure out that your mysql_instance module affects
-their MySQL instances.
-
-If there's more that they should know about, though, this is the place to
-mention:
-
-* Files, packages, services, or operations that the module will alter, impact,
-  or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-another module, etc.), mention it here.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you might want to include an additional "Upgrading" section here.
-
 ### Beginning with stdlib9_readiness_checker
 
-The very basic steps needed for a user to get the module up and running. This
-can include setup steps, if necessary, or it can be an example of the most basic
-use of the module.
+Add stdlib9 readiness checker to your Puppetfile and deploy code to your Puppet primary.
+
+Stdlib readiness checker task and plan accepts 1 parameters. 
+
+**Environment:** Required: Name of the environment you wish to scan. This could be production, development etc. Note: the plan limits environment names to [valid environment names.][2]
+
+The plan `stdlib9_readiness_checker` will automatically locate your Puppet primary server. To manually target a Puppet server use the task `stdlib9_readiness_checker` and select the desired target. 
+
+These plans should also function when run by [Puppet Bolt.][4]
 
 ## Usage
 
-Include usage examples for common use cases in the **Usage** section. Show your
-users how to use your module to solve problems, and be sure to include code
-examples. Include three to five examples of the most important or common tasks a
-user can accomplish with your module. Show users how to accomplish more complex
-tasks that involve different types, classes, and functions working in tandem.
+From within the Puppet Enterprise console, goto plans or tasks and select `stdlib9_readiness_checker`. Fill in required values then run the task/plan.
 
-## Reference
-
-This section is deprecated. Instead, add reference information to your code as
-Puppet Strings comments, and then use Strings to generate a REFERENCE.md in your
-module. For details on how to add code comments and generate documentation with
-Strings, see the [Puppet Strings documentation][2] and [style guide][3].
-
-If you aren't ready to use Strings yet, manually create a REFERENCE.md in the
-root of your module directory and list out each of your module's classes,
-defined types, facts, functions, Puppet tasks, task plans, and resource types
-and providers, along with the parameters for each.
-
-For each element (class, defined type, function, and so on), list:
-
-* The data type, if applicable.
-* A description of what the element does.
-* Valid values, if the data type doesn't make it obvious.
-* Default value, if any.
-
-For example:
-
-```
-### `pet::cat`
-
-#### Parameters
-
-##### `meow`
-
-Enables vocalization in your cat. Valid options: 'string'.
-
-Default: 'medium-loud'.
-```
+Depending on the size of your Puppet code environment, it may take a while to return the results.
 
 ## Limitations
 
-In the Limitations section, list any incompatibilities, known issues, or other
-warnings.
+stdlib9_readiness_checker can be used to help prepare for the migration to stdlib 9. However it should not solely relied upon to catch all issues. Running your code on stdlib 9 within your test environment is vital before performing production upgrades.
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing
-to your project and how they should submit their work.
+If you find any issues with this module, please log them in the issues register of the GitHub project. [Issues][3]
 
-## Release Notes/Contributors/Etc. **Optional**
+PR's glady accepted. 
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You can also add any additional sections you feel are
-necessary or important to include here. Please use the `##` header.
-
-[1]: https://puppet.com/docs/pdk/latest/pdk_generating_modules.html
-[2]: https://puppet.com/docs/puppet/latest/puppet_strings.html
-[3]: https://puppet.com/docs/puppet/latest/puppet_strings_style.html
+[1]: https://dev.to/puppet/deprecation-of-puppetlabs-stdlib-functions-3cj8
+[2]: https://forge.puppet.com/modules/puppetlabs/stdlib/readme
+[3]: https://github.com/benjamin-robertson/stdlib9_readiness_checker/issues
+[4]: https://www.puppet.com/docs/bolt/latest/bolt.html
