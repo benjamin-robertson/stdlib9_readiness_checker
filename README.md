@@ -26,7 +26,7 @@ Add stdlib9 readiness checker to your Puppetfile and deploy code to your Puppet 
 
 Stdlib readiness checker task and plan accepts 1 parameters. 
 
-**Environment:** Required: Name of the environment you wish to scan. This could be production, development etc. Note: the plan limits environment names to [valid environment names.][2]
+**Environment:** Required: Name of the environment you wish to scan. This could be production, development etc. Note: the plan limits environment names to [valid environment names.][5]
 
 The plan `stdlib9_readiness_checker` will automatically locate your Puppet primary server. To manually target a Puppet server use the task `stdlib9_readiness_checker` and select the desired target. 
 
@@ -52,3 +52,4 @@ PR's glady accepted.
 [2]: https://forge.puppet.com/modules/puppetlabs/stdlib/readme
 [3]: https://github.com/benjamin-robertson/stdlib9_readiness_checker/issues
 [4]: https://www.puppet.com/docs/bolt/latest/bolt.html
+[5]: https://www.puppet.com/docs/puppet/latest/lang_reserved.html#lang_acceptable_char-environment-names
