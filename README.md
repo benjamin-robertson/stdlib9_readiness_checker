@@ -39,7 +39,7 @@ Depending on the size of your Puppet code environment, it may take a while to re
 
 ## Limitations
 
-stdlib9_readiness_checker can be used to help prepare for the migration to stdlib 9. However it should not solely relied upon to catch all issues. Running your code on stdlib 9 within your test environment is vital before performing production upgrades.
+stdlib9_readiness_checker can be used to help prepare for the migration to stdlib 9. However it should not be solely relied upon to catch all issues. Running your code on stdlib 9 within your test environment is vital before performing production upgrades.
 
 ## Development
 
