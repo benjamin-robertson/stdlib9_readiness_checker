@@ -13,10 +13,9 @@ A module containing a task and plan to scan entire code environments for stdlib 
 
 ## Description
 
-Puppet 8 requires upgrade to [stdlib 9][2]. Stdlib 9 has removed many [deprecated functions][1], if these functions are still in use Puppet code will fail to compile after upgrading to stdlib 9. 
+Puppet 8 requires upgrade to [stdlib 9][2]. Stdlib 9 has removed many [deprecated functions][1], if these functions are still in use, Puppet code will fail to compile after upgrading to stdlib 9. 
 
-Stdlib 9 should be be upgraded too prior to upgrading the Puppet 8. Stdlib 9 is supported on Puppet 7. 
-
+Stdlib should be be upgraded to stdlib 9.x> prior to upgrading to Puppet 8. Stdlib 9 is supported on Puppet 7. 
 
 ## Setup
 
@@ -24,13 +23,13 @@ Stdlib 9 should be be upgraded too prior to upgrading the Puppet 8. Stdlib 9 is 
 
 Add stdlib9 readiness checker to your Puppetfile and deploy code to your Puppet primary.
 
-Stdlib readiness checker task and plan accepts 1 parameters. 
+Stdlib readiness checker task and plan accepts 1 parameter. 
 
 **Environment:** Required: Name of the environment you wish to scan. This could be production, development etc. Note: the plan limits environment names to [valid environment names.][5]
 
 The plan `stdlib9_readiness_checker` will automatically locate your Puppet primary server. To manually target a Puppet server use the task `stdlib9_readiness_checker` and select the desired target. 
 
-These plans should also function when run by [Puppet Bolt.][4]
+This task should also function when run by [Puppet Bolt.][4]
 
 ## Usage
 

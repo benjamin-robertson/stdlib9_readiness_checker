@@ -10,7 +10,7 @@
 
 ### Plans
 
-* [`stdlib9_readiness_checker::stdlib9_readiness_checker`](#stdlib9_readiness_checker--stdlib9_readiness_checker): Puppet task which scans entire code environments for removed functions in stdlib 9. Will automatically locate the Puppet primary and run against it.
+* [`stdlib9_readiness_checker::stdlib9_readiness_checker`](#stdlib9_readiness_checker--stdlib9_readiness_checker): Puppet task which scans entire code environments for removed functions in stdlib 9. Will automatically locate the Puppet primary and run task against it.
 
 ## Tasks
 

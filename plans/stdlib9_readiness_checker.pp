@@ -1,6 +1,5 @@
 # lint:ignore:140chars lint:ignore:strict_indent
-# @summary Puppet task which scans entire code environments for removed functions in stdlib 9. Will automatically locate the Puppet primary and run against it. 
-#
+# @summary Puppet task which scans entire code environments for removed functions in stdlib 9. Will automatically locate the Puppet primary and run task against it. 
 #
 # @param environment Code environment to scan.
 plan stdlib9_readiness_checker::stdlib9_readiness_checker (
