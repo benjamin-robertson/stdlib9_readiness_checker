@@ -8,14 +8,15 @@ REMOVED_FUNCTIONS = ['dig44', 'hash', 'has_key', 'is_array', 'is_bool',
                      'is_float', 'is_ip_address', 'is_ipv4_address', 'is_ipv6_address', 'is_numeric',
                      'is_string', 'private', 'sprintf_hash', 'validate_absolute_path', 'validate_array',
                      'validate_bool', 'validate_hash', 'validate_integer', 'validate_ip_address',
-                     'validate_ipv4_address', 'validate_ipv6_address', 'validate_numeric'].freeze
+                     'validate_ipv4_address', 'validate_ipv6_address', 'validate_numeric', 'type3x'].freeze
 
 # Functions moved to Puppet language
 
 MOVED_FUNCTIONS = ['abs', 'camelcase', 'capitalize', 'ceiling', 'chomp',
                    'chop', 'downcase', 'getvar', 'lstrip', 'max',
                    'min', 'round', 'rstrip', 'sort', 'strip',
-                   'upcaseyou', 'unique'].freeze
+                   'upcaseyou', 'unique', 'length', 'empty', 'flatten',
+                   'join', 'keys', 'values'].freeze
 
 # Read paramerters from STDIN
 params = JSON.parse(STDIN.read)
@@ -39,8 +40,6 @@ def print_message(file, function, line, status)
 end
 
 def check_file(file)
-  # this should work? confirm it is. Maybe print the file name to confirm.
-  puts "before #{file}"
   handle    = File.open(file, 'r')
   count     = 0
   handle.each_line do |line|
