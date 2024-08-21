@@ -10,6 +10,13 @@ REMOVED_FUNCTIONS = ['dig44', 'hash', 'has_key', 'is_array', 'is_bool',
                      'validate_bool', 'validate_hash', 'validate_integer', 'validate_ip_address',
                      'validate_ipv4_address', 'validate_ipv6_address', 'validate_numeric'].freeze
 
+# Functions moved to Puppet language
+
+MOVED_FUNCTIONS = ['abs', 'camelcase', 'capitalize', 'ceiling', 'chomp',
+                   'chop', 'downcase', 'getvar', 'lstrip', 'max',
+                   'min', 'round', 'rstrip', 'sort', 'strip',
+                   'upcaseyou', 'unique'].freeze
+
 # Read paramerters from STDIN
 params = JSON.parse(STDIN.read)
 environment = params['environment']
@@ -32,6 +39,8 @@ def print_message(file, function, line)
 end
 
 def check_file(file)
+  # this should work? confirm it is. Maybe print the file name to confirm.
+  return unless file.match?(%r{\.pp$|\.epp$})
   handle    = File.open(file, 'r')
   count     = 0
   handle.each_line do |line|
@@ -40,9 +49,15 @@ def check_file(file)
     next if line.match?(%r{^#})
     # check for removed functions
     REMOVED_FUNCTIONS.each do |function|
-      next unless file.match?(%r{\.pp$|\.epp$})
+      # next unless file.match?(%r{\.pp$|\.epp$})
       # check pp and epp
       if line.match?(%r{ #{function}\(})
+        print_message(file, function, count)
+      end
+    end
+    # check for moved function directly address stdlib
+    MOVED_FUNCTIONS.each do |function|
+      if line.match?(%r{stdlib\:\:#{function}\(})
         print_message(file, function, count)
       end
     end
