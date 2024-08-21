@@ -58,7 +58,7 @@ def check_file(file)
     # check for moved function directly address stdlib
     MOVED_FUNCTIONS.each do |function|
       if line.match?(%r{stdlib\:\:#{function}\(})
-        print_message(file, function, count)
+        print_message(file, "moved #{function}", count)
       end
     end
   end
