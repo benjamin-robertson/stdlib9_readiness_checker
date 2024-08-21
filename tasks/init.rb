@@ -40,7 +40,9 @@ end
 
 def check_file(file)
   # this should work? confirm it is. Maybe print the file name to confirm.
+  puts "before #{file}"
   return unless file.match?(%r{\.pp$|\.epp$})
+  puts "after #{file}"
   handle    = File.open(file, 'r')
   count     = 0
   handle.each_line do |line|
