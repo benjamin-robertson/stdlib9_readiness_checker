@@ -34,15 +34,13 @@ def get_pp_files(files, folder, pattern)
   end
 end
 
-def print_message(file, function, line)
-  puts "File: #{file} contains removed function #{function} on line #{line}"
+def print_message(file, function, line, status)
+  puts "File: #{file} contains #{status} function #{function} on line #{line}"
 end
 
 def check_file(file)
   # this should work? confirm it is. Maybe print the file name to confirm.
   puts "before #{file}"
-  return unless file.match?(%r{\.pp$|\.epp$})
-  puts "after #{file}"
   handle    = File.open(file, 'r')
   count     = 0
   handle.each_line do |line|
@@ -54,13 +52,13 @@ def check_file(file)
       # next unless file.match?(%r{\.pp$|\.epp$})
       # check pp and epp
       if line.match?(%r{ #{function}\(})
-        print_message(file, function, count)
+        print_message(file, function, count, 'removed')
       end
     end
     # check for moved function directly address stdlib
     MOVED_FUNCTIONS.each do |function|
       if line.match?(%r{stdlib\:\:#{function}\(})
-        print_message(file, "moved #{function}", count)
+        print_message(file, function, count, 'moved')
       end
     end
   end
