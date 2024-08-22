@@ -2,6 +2,7 @@
 # @summary Puppet task which scans entire code environments for removed functions in stdlib 9. Will automatically locate the Puppet primary and run task against it. 
 #
 # @param environment Code environment to scan.
+# @param check_deprecated Whether to check for deprecated functions in stdlib9.
 plan stdlib9_readiness_checker::stdlib9_readiness_checker (
   Pattern[/^[a-z0-9_]+/]  $environment,
   Boolean                 $check_deprecated = false,

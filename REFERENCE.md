@@ -28,6 +28,12 @@ Data type: `String[1]`
 
 Code environment to scan.
 
+##### `check_deprecated`
+
+Data type: `Boolean`
+
+Check for deprecated functions
+
 ## Plans
 
 ### <a name="stdlib9_readiness_checker--stdlib9_readiness_checker"></a>`stdlib9_readiness_checker::stdlib9_readiness_checker`
@@ -39,10 +45,19 @@ lint:ignore:140chars lint:ignore:strict_indent
 The following parameters are available in the `stdlib9_readiness_checker::stdlib9_readiness_checker` plan:
 
 * [`environment`](#-stdlib9_readiness_checker--stdlib9_readiness_checker--environment)
+* [`check_deprecated`](#-stdlib9_readiness_checker--stdlib9_readiness_checker--check_deprecated)
 
 ##### <a name="-stdlib9_readiness_checker--stdlib9_readiness_checker--environment"></a>`environment`
 
 Data type: `Pattern[/^[a-z0-9_]+/]`
 
 Code environment to scan.
+
+##### <a name="-stdlib9_readiness_checker--stdlib9_readiness_checker--check_deprecated"></a>`check_deprecated`
+
+Data type: `Boolean`
+
+Whether to check for deprecated functions in stdlib9.
+
+Default value: `false`
 
