@@ -86,6 +86,7 @@ def check_file(file, check_deprecated)
     end
     # check for deprecated functions
     next unless check_deprecated
+    puts 'checking deprecated'
     DEPRECATED_FUNCTIONS.each do |function|
       if line.match?(%r{\h#{function}\(|^#{function}\(})
         print_message(file, function, count, 'deprecated function')
