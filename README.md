@@ -27,6 +27,8 @@ Stdlib readiness checker task and plan accepts 1 parameter.
 
 **Environment:** Required: Name of the environment you wish to scan. This could be production, development etc. Note: the plan limits environment names to [valid environment names.][5]
 
+**check_deprecated:** Optional: Whether to check for deprecated functions in stdlib9.
+
 The plan `stdlib9_readiness_checker` will automatically locate your Puppet primary server. To manually target a Puppet server use the task `stdlib9_readiness_checker` and select the desired target. 
 
 This task should also function when run by [Puppet Bolt.][4]
