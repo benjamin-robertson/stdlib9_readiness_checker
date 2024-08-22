@@ -58,7 +58,7 @@ def print_message(file, function, line, status)
   puts "File: #{file} contains #{status} #{function} on line #{line}"
 end
 
-def check_file(file)
+def check_file(file, check_deprecated)
   handle    = File.open(file, 'r')
   count     = 0
   handle.each_line do |line|
@@ -85,11 +85,10 @@ def check_file(file)
       end
     end
     # check for deprecated functions
-    if check_deprecated
-      DEPRECATED_FUNCTIONS.each do |function|
-        if line.match?(%r{\h#{function}\(|^#{function}\(})
-          print_message(file, function, count, 'deprecated function')
-        end
+    next unless check_deprecated
+    DEPRECATED_FUNCTIONS.each do |function|
+      if line.match?(%r{\h#{function}\(|^#{function}\(})
+        print_message(file, function, count, 'deprecated function')
       end
     end
   end
@@ -99,5 +98,5 @@ files = []
 get_pp_files(files, "/etc/puppetlabs/code/environments/#{environment}/*", pattern)
 
 files.each do |file|
-  check_file(file)
+  check_file(file, check_deprecated)
 end
