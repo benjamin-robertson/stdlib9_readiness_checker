@@ -8,11 +8,38 @@ REMOVED_FUNCTIONS = ['dig44', 'hash', 'has_key', 'is_array', 'is_bool',
                      'is_float', 'is_ip_address', 'is_ipv4_address', 'is_ipv6_address', 'is_numeric',
                      'is_string', 'private', 'sprintf_hash', 'validate_absolute_path', 'validate_array',
                      'validate_bool', 'validate_hash', 'validate_integer', 'validate_ip_address',
-                     'validate_ipv4_address', 'validate_ipv6_address', 'validate_numeric'].freeze
+                     'validate_ipv4_address', 'validate_ipv6_address', 'validate_numeric', 'type3x',
+                     'is_absolute_path', 'validate_string', 'is_integer', 'is_hash', 'validate_re',
+                     'validate_slength', 'is_email_address', 'is_mac_address', 'is_domain_name', 'is_function_available'].freeze
+
+# Functions moved to Puppet language
+
+MOVED_FUNCTIONS = ['abs', 'camelcase', 'capitalize', 'ceiling', 'chomp',
+                   'chop', 'downcase', 'getvar', 'lstrip', 'max',
+                   'min', 'round', 'rstrip', 'sort', 'strip',
+                   'upcaseyou', 'unique', 'length', 'empty', 'flatten',
+                   'join', 'keys', 'values'].freeze
+
+# Removed data types
+
+REMOVED_DATA_TYPES = ['Stdlib::Compat::Absolute_path', 'Stdlib::Compat::Array', 'Stdlib::Compat::Bool',
+                      'Stdlib::Compat::Float', 'Stdlib::Compat::Hash', 'Stdlib::Compat::Integer',
+                      'Stdlib::Compat::Ip_address', 'Stdlib::Compat::Ipv4', 'Stdlib::Compat::Ipv6',
+                      'Stdlib::Compat::Numeric', 'Stdlib::Compat::String'].freeze
+
+# Deprecated functions. These now use the stdlib::<function> namespace function.
+# Need to ensure space is preceeding this function.
+DEPRECATED_FUNCTIONS = ['batch_escape', 'ensure_packages', 'fqdn_rand_string', 'has_interface_with',
+                        'merge', 'os_version_gte', 'parsehocon', 'parsepson',
+                        'powershell_escape', 'seeded_rand', 'seeded_rand_string', 'shell_escape',
+                        'to_json', 'to_json_pretty', 'to_python', 'to_ruby',
+                        'to_toml', 'to_yaml', 'type_of', 'validate_domain_name',
+                        'validate_email_address'].freeze
 
 # Read paramerters from STDIN
 params = JSON.parse(STDIN.read)
 environment = params['environment']
+check_deprecated = params['check_deprecated']
 pattern = [%r{\.pp$}, %r{\.epp$}]
 
 def get_pp_files(files, folder, pattern)
@@ -27,11 +54,11 @@ def get_pp_files(files, folder, pattern)
   end
 end
 
-def print_message(file, function, line)
-  puts "File: #{file} contains removed function #{function} on line #{line}"
+def print_message(file, function, line, status)
+  puts "File: #{file} contains #{status} #{function} on line #{line}"
 end
 
-def check_file(file)
+def check_file(file, check_deprecated)
   handle    = File.open(file, 'r')
   count     = 0
   handle.each_line do |line|
@@ -40,10 +67,28 @@ def check_file(file)
     next if line.match?(%r{^#})
     # check for removed functions
     REMOVED_FUNCTIONS.each do |function|
-      next unless file.match?(%r{\.pp$|\.epp$})
       # check pp and epp
       if line.match?(%r{ #{function}\(})
-        print_message(file, function, count)
+        print_message(file, function, count, 'removed function')
+      end
+    end
+    # check for moved function directly address stdlib
+    MOVED_FUNCTIONS.each do |function|
+      if line.match?(%r{stdlib\:\:#{function}\(})
+        print_message(file, function, count, 'moved function')
+      end
+    end
+    # check for removed data types
+    REMOVED_DATA_TYPES.each do |type|
+      if line.match?(%r{#{type}})
+        print_message(file, type, count, 'removed type')
+      end
+    end
+    # check for deprecated functions
+    next unless check_deprecated
+    DEPRECATED_FUNCTIONS.each do |function|
+      if line.match?(%r{\h#{function}\(|^#{function}\(})
+        print_message(file, function, count, 'deprecated function')
       end
     end
   end
@@ -53,5 +98,5 @@ files = []
 get_pp_files(files, "/etc/puppetlabs/code/environments/#{environment}/*", pattern)
 
 files.each do |file|
-  check_file(file)
+  check_file(file, check_deprecated)
 end

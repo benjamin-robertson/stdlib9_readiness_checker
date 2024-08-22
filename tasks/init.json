@@ -6,6 +6,11 @@
     "environment":{
       "description": "Code environment to scan.",
       "type": "String[1]"
+    },
+    "check_deprecated":{
+      "description": "Check for deprecated functions",
+      "type": "Boolean",
+      "default": false
     }
   }
 }

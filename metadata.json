@@ -1,6 +1,6 @@
 {
   "name": "benjaminrobertson-stdlib9_readiness_checker",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": "benjaminrobertson",
   "summary": "Detect stdlib 9 removed functions within a Puppet Environment",
   "license": "Apache-2.0",
