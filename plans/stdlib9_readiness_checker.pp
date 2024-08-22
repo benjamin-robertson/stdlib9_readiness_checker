@@ -4,6 +4,7 @@
 # @param environment Code environment to scan.
 plan stdlib9_readiness_checker::stdlib9_readiness_checker (
   Pattern[/^[a-z0-9_]+/]  $environment,
+  Boolean                 $check_deprecated = false,
 ) {
   # We need to get the primary server. Check pe_status_check fact. otherwise fall back to built in fact.
   $pe_status_results = puppetdb_query('inventory[certname] { facts.pe_status_check_role = "primary" }')
@@ -22,7 +23,7 @@ plan stdlib9_readiness_checker::stdlib9_readiness_checker (
   $pe_target_certname = $pe_target.map | Hash $node | { $node['certname'] }
   out::message("pe_target_certname is ${pe_target_certname}")
 
-  $task_results = run_task('stdlib9_readiness_checker::init', $pe_target_certname, { 'environment' => $environment, '_catch_errors' => true })
+  $task_results = run_task('stdlib9_readiness_checker::init', $pe_target_certname, { 'environment' => $environment, 'check_deprecated' => $check_deprecated, '_catch_errors' => true })
 
   $results = $task_results[0].message
   return($results)
