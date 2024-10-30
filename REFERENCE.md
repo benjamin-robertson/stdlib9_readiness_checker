@@ -34,6 +34,12 @@ Data type: `Boolean`
 
 Check for deprecated functions
 
+##### `environment_path`
+
+Data type: `Optional[String]`
+
+Path to Puppet environment, EG where Puppet code is deployed on primary.
+
 ## Plans
 
 ### <a name="stdlib9_readiness_checker--stdlib9_readiness_checker"></a>`stdlib9_readiness_checker::stdlib9_readiness_checker`

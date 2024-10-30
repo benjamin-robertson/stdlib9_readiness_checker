@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 1.0.0
+
+- Updated plan and task to work with lockless code deploys. Stdlib9_readiness_checker now dynamically locates environment directory using facts and configuration files. [#2](https://github.com/benjamin-robertson/stdlib9_readiness_checker/issues/2)
+- Bumped PDK version.
+
 ## Release 0.2.0
 
 **Features**

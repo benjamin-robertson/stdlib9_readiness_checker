@@ -25,7 +25,11 @@ plan stdlib9_readiness_checker::stdlib9_readiness_checker (
   $pe_target_certname = $pe_target.map | Hash $node | { $node['certname'] }
   out::message("pe_target_certname is ${pe_target_certname}")
 
-  $task_results = run_task('stdlib9_readiness_checker::init', $pe_target_certname, { 'environment' => $environment, 'check_deprecated' => $check_deprecated, '_catch_errors' => true })
+  # Update facts
+  $pe_target_final = get_target($pe_target_certname)
+  without_default_logging() || { run_plan(facts, targets => $pe_target_final) }
+
+  $task_results = run_task('stdlib9_readiness_checker::init', $pe_target_final, { 'environment' => $environment, 'check_deprecated' => $check_deprecated, 'environment_path' => $pe_target_final.facts['puppet_environmentpath'], '_catch_errors' => true })
 
   $results = $task_results[0].message
   return($results)
