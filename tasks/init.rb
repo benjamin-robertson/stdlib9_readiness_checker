@@ -1,6 +1,7 @@
 #!/opt/puppetlabs/puppet/bin/ruby
 
 require 'json'
+require 'hocon'
 
 # removed functions
 
