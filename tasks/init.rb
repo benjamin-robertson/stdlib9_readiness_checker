@@ -39,8 +39,21 @@ DEPRECATED_FUNCTIONS = ['batch_escape', 'ensure_packages', 'fqdn_rand_string', '
 # Read paramerters from STDIN
 params = JSON.parse(STDIN.read)
 environment = params['environment']
+environment_path = params['environment_path']
 check_deprecated = params['check_deprecated']
 pattern = [%r{\.pp$}, %r{\.epp$}]
+
+# Get environment dir
+if environment_path.nil?
+  # load configuration
+  config = Hocon.load('/etc/puppetlabs/puppetserver/conf.d/file-sync.conf')
+  if config.dig('file-sync', 'repos', 'puppet-code', 'live-dir').nil?
+    puts 'Unable to get puppet environment path, please specify path and ensure you are running task on the correct server.'
+    exit(1)
+  else
+    environment_path = "#{config.dig('file-sync', 'repos', 'puppet-code', 'live-dir')}/environments"
+  end
+end
 
 def get_pp_files(files, folder, pattern)
   Dir.glob(folder) do |file|
@@ -95,7 +108,7 @@ def check_file(file, check_deprecated)
 end
 
 files = []
-get_pp_files(files, "/etc/puppetlabs/code/environments/#{environment}/*", pattern)
+get_pp_files(files, "#{environment_path}/#{environment}/*", pattern)
 
 files.each do |file|
   check_file(file, check_deprecated)

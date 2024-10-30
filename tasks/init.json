@@ -11,6 +11,10 @@
       "description": "Check for deprecated functions",
       "type": "Boolean",
       "default": false
+    },
+    "environment_path":{
+      "description": "Path to Puppet environment, EG where Puppet code is deployed on primary.",
+      "type": "Optional[String]"
     }
   }
 }
